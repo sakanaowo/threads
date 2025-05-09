@@ -15,7 +15,7 @@ function Navbar() {
                         </Link>
                     </div>
                     <DesktopNavbar />
-                    {/* <MobileNavbar /> */}
+                    <MobileNavbar />
                 </div>
             </div>
         </nav>
