@@ -4,6 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
+import SideBar from "@/components/SideBar";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -46,12 +48,15 @@ export default function RootLayout({
                 {/* contain to center the content */}
                 <div className="max-w-7xl mx-auto px-4">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div className="hidden lg:block lg:col-span-3">sidebar</div>
+                    <div className="hidden lg:block lg:col-span-3">
+                      <SideBar />
+                    </div>
                     <div className="lg:col-span-9">{children}</div>
                   </div>
                 </div>
               </main>
             </div>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
