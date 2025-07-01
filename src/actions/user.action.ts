@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export async function syncUser() {
     try {
@@ -108,5 +109,55 @@ export async function getRandomUsers() {
     } catch (error) {
         console.log("Error fetching random users", error);
         return [];
+    }
+}
+
+export async function toggleFollow(targetUserId: string) {
+    try {
+        const userId = await getDbUserId();
+        if (userId === targetUserId) throw new Error("Cannot follow yourself");
+
+        // Check if the user is already following the target user
+        const existingFollow = await prisma.follows.findUnique({
+            where: {
+                followerId_followingId: {
+                    followerId: userId,
+                    followingId: targetUserId,
+                }
+            },
+        });
+        let message = "Followed"
+        if (existingFollow) {
+            message = "Unfollowed"
+            await prisma.follows.delete({
+                where: {
+                    followerId_followingId: {
+                        followerId: userId,
+                        followingId: targetUserId,
+                    }
+                },
+            })
+        } else {
+            await prisma.$transaction([
+                prisma.follows.create({
+                    data: {
+                        followerId: userId,
+                        followingId: targetUserId,
+                    }
+                }),
+                prisma.notification.create({
+                    data: {
+                        type: "FOLLOW",
+                        userId: targetUserId,
+                        creatorId: userId
+                    }
+                })
+            ])
+        }
+        revalidatePath("/");
+        return { success: true, message: message + "successfully" };
+    } catch (error) {
+        console.log("Error toggling follow", error);
+        return { success: false, message: "Failed to toggle follow" };
     }
 }

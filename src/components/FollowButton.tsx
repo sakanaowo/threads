@@ -1,16 +1,32 @@
 "use client";
-import { Button } from './ui/button';
-import { Loader2Icon } from 'lucide-react';
-import { useState } from 'react';
-// import { followUser } from '@/actions/user.action';
-import toast from 'react-hot-toast';
-function FollowButton() {
+
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Loader2Icon } from "lucide-react";
+import toast from "react-hot-toast";
+import { toggleFollow } from "@/actions/user.action";
+
+function FollowButton({ userId }: { userId: string }) {
     const [isLoading, setIsLoading] = useState(false);
+
+    const handleFollow = async () => {
+        setIsLoading(true);
+
+        try {
+            await toggleFollow(userId);
+            toast.success("User followed successfully");
+        } catch {
+            toast.error("Error following user");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <Button
             size={"sm"}
             variant={"secondary"}
-            // onClick={handleFollow}
+            onClick={handleFollow}
             disabled={isLoading}
             className="w-20"
         >
@@ -18,5 +34,4 @@ function FollowButton() {
         </Button>
     );
 }
-
-export default FollowButton
+export default FollowButton;
