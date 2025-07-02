@@ -1,3 +1,4 @@
+"use client";
 import { getPosts } from "@/actions/post.action";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
