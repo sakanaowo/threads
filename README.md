@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Threads - Next.js Social App
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Threads is a modern social network application built with Next.js, Prisma, Clerk, TailwindCSS, and various UI libraries. The app allows users to create posts, follow others, receive notifications, edit their profiles, and upload images.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Technologies Used
+
+- **Next.js**: Powerful React framework for modern web development.
+- **Prisma**: ORM for database access and management.
+- **Clerk**: User authentication and management.
+- **TailwindCSS**: Utility-first CSS for beautiful and flexible UI.
+- **Radix UI**: Modern UI component library.
+- **UploadThing**: File upload handling.
+- **React Hot Toast**: Real-time toast notifications.
+- **Styled-components**: CSS-in-JS for React.
+
+## Folder Structure
+
+```
+prisma/                # Database schema and migrations
+public/                # Static assets (images, favicon, ...)
+src/
+  app/                 # Next.js app directory (routing, layout, API routes)
+  components/          # Reusable UI components
+  actions/             # Server-side logic (server actions)
+  lib/                 # Utilities, Prisma config, upload, ...
+  notifications/       # Notifications page
+  profile/             # User profile pages
+  tasks/               # Task management page
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. Set up database and Prisma:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## References
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [Clerk Documentation](https://clerk.com/docs)
+- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+
+---
