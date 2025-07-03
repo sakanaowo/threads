@@ -34,7 +34,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
             setHasLiked((prev) => !prev);
             setOptmisticLikes((prev) => prev + (hasLiked ? -1 : 1));
             await toggleLike(post.id);
-        } catch {
+        } catch (error) {
             setOptmisticLikes(post._count.likes);
             setHasLiked(post.likes.some((like) => like.userId === dbUserId));
         } finally {
@@ -100,9 +100,9 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                                     </div>
                                 </div>
                                 {/* Check if current user is the post author */}
-                                {dbUserId === post.author.id && (
+                                {user?.id === post.author.id ? (
                                     <DeleteAlertDialog isDeleting={isDeleting} onDelete={handleDeletePost} />
-                                )}
+                                ) : null}
                             </div>
                             <p className="mt-2 text-sm text-foreground break-words">{post.content}</p>
                         </div>

@@ -1,7 +1,8 @@
 "use client";
 
-// import { UploadDropzone } from "@/lib/uploadthing";
+import { UploadDropzone } from "@/lib/uploadthing";
 import { XIcon } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface ImageUploadProps {
     onChange: (url: string) => void;
@@ -32,6 +33,7 @@ function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
             }}
             onUploadError={(error: Error) => {
                 console.log(error);
+                toast.error("Failed to upload image");
             }}
         />
     );
